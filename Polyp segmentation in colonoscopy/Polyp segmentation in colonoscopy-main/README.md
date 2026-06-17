@@ -1,46 +1,54 @@
-# CIRNet_TIP2022
+# CIRNet-VMamba 用于息肉分割
+
+本项目基于 CIRNet 论文，将骨干网络从 ResNet 替换为 VMamba，用于息肉分割任务。
+
+## 参考论文
 
 Runmin Cong, Qinwei Lin, Chen Zhang, Chongyi Li, Xiaochun Cao, Qingming Huang, and Yao Zhao, CIR-Net: Cross-modality interaction and refinement for RGB-D salient object detection, IEEE Transactions on Image Processing, vol. 31, pp. 6800-6815, 2022.
 
-# Results of CIR-Net
-* Results:
- - We provide the resutls of our CIR-Net on six popular RGB-D SOD benchmark datasets, including STEREO797, NLPR, NJUD, DUT, LFSD and SIP.
- - The results can be download from: [Baidu Cloud](https://pan.baidu.com/s/1vZupiTkXI3ZTIYLrdEL9UQ) (password:1234)
+## 项目概述
 
-# Pytorch Code of CIR-Net:
-* Pytorch implementation of CIR-Net
-* Pretrained model:
-  - We provide our testing code. If you test our model, please download the pretrained model, unzip it, and put the checkpoint `CIRNet.pth` to `CIRNet_cpts/` folder 
-  - Pretrained model using ResNet50 backbone:[Baidu Cloud](https://pan.baidu.com/s/1QUoGbqgaZhalwJxoDOpL8A) (password:1234)
-  - Pretrained model using VGG16 backbone: [Baidu Cloud](https://pan.baidu.com/s/1tP3XFXhmAjC2Q3I8lC7TwQ) (password:1234)
+本实现将 CIR-Net 架构适配到医学图像分割领域，专门用于结肠镜检查中的息肉分割。主要修改是将原始的 ResNet 骨干网络替换为 VMamba，利用状态空间模型在医学图像场景中实现更好的特征提取。
 
+## Pytorch 实现
 
-## Requirements
+* 基于 VMamba 骨干网络的 CIR-Net Pytorch 实现
+* 预训练模型：
+  - 我们提供测试代码。如果您想测试我们的模型，请下载预训练模型，解压后将其放入相应的文件夹
+  - 使用 VMamba 骨干网络的息肉分割预训练模型：[下载链接] (密码:1234)
 
-* Python 3.7
-* torch=1.10.1
-* torchvision=0.11.2
+## 环境要求
+
+* Python 3.7+
+* torch>=1.10.1
+* torchvision>=0.11.2
 * opencv-python
 * Pillow
+* timm (用于 VMamba 实现)
 
-## Data Preprocessing
-* Please download and put the train data to `data` folder.
-* train data can be download from: [Baidu Cloud](https://pan.baidu.com/s/1NFt3eSpdNA99DuP9O5zpHA) (password:1234)
-* test data can be download from: [Baidu Cloud](https://pan.baidu.com/s/1KVCLaXLrMZDUZDpYBd_SJA) (password:1234)
+## 数据准备
 
-## Test
+* 请下载息肉分割训练数据并将其放入 `data` 文件夹。
+* 数据集应包含：
+  - 训练图像及其对应的标注
+  - 测试图像及其对应的标注
+* 常用的息肉分割数据集包括 CVC-ClinicDB、ETIS-Larib、Kvasir-SEG 等
+
+## 测试
 ```
-python3 CIRNet_test.py --backbone R50 --test_model CIRNet_R50.pth
+python3 CIRNet_test.py --backbone VMamba --test_model CIRNet_VMamba.pth
 ```
 
-## Train
+## 训练
 ```
-python3 CIRNet_train.py --backbone R50
+python3 CIRNet_train.py --backbone VMamba
 ```
 
-* You can find the results in the `test_maps` folder
+* 您可以在 `test_maps` 文件夹中找到结果
 
-# If you use our CIR-Net, please cite our paper:
+## 引用
+
+如果您使用我们的 CIR-Net，请引用我们的论文：
 
      @article{crm/tip22/CIRNet,
        title={{CIR-Net}: Cross-modality interaction and refinement for {RGB-D} salient object detection},
@@ -51,5 +59,5 @@ python3 CIRNet_train.py --backbone R50
        year={2022},
       }
 
-# Contact Us
-If you have any questions, please contact Runmin Cong (rmcong@bjtu.edu.cn) or Qinwei Lin (lqw22@mails.tsinghua.edu.cn).
+## 联系我们
+如果您有任何问题，请联系 Runmin Cong (rmcong@bjtu.edu.cn) 或 Qinwei Lin (lqw22@mails.tsinghua.edu.cn)。
